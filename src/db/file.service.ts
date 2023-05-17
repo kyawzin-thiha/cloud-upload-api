@@ -12,6 +12,7 @@ export class FileDbService {
         type: string,
         key: string,
         url: string,
+        folder?: string,
     ): Promise<[FileDto, ErrorDto]> {
         try {
             const file = await this.prisma.file.create({
@@ -20,6 +21,11 @@ export class FileDbService {
                     type,
                     key,
                     url,
+                    folder: {
+                        connect: {
+                            id: folder,
+                        }
+                    }
                 },
             });
             return [file, null];

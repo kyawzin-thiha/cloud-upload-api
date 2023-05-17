@@ -49,8 +49,16 @@ export class FolderDbService {
                     id,
                 },
                 include: {
-                    subFolders: true,
-                    files: true,
+                    subFolders: {
+                        where: {
+                            deleted: false,
+                        }
+                    },
+                    files: {
+                        where: {
+                            deleted: false,
+                        }
+                    },
                 }
             })
             return [folder, null]

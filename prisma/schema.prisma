@@ -1,0 +1,35 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["extendedWhereUnique"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Folder {
+  id             String   @id @default(cuid()) @map("_id")
+  name           String
+  uid            String   @unique
+  files          File[]
+  parentFolderId String?
+  parentFolder   Folder?  @relation(name: "FolderToSubFolders", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subFolders     Folder[] @relation(name: "FolderToSubFolders")
+  deleted        Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model File {
+  id        String   @id @default(cuid()) @map("_id")
+  name      String
+  type      String
+  key       String
+  url       String
+  folderId  String?
+  folder    Folder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  deleted   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

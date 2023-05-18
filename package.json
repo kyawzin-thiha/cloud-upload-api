@@ -25,6 +25,8 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/serve-static": "^3.0.1",
+    "@nestjs/swagger": "^6.3.0",
     "@prisma/client": "^4.14.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
